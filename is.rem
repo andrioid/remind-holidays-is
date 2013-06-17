@@ -1,0 +1,57 @@
+# Handy constants/function for specifing week of month...
+SET  Week_1		 1
+SET  Week_2		 8
+SET  Week_3		15
+SET  Week_4		22
+FSET _last(mo)		"1 " + MON((mo%12)+1)+" --7"
+
+SET SaveTrig $NumTrig
+SET easter EASTERDATE(YEAR(TODAY()))
+REM [TRIGGER(easter-46)] MSG %"Aschermittwoch (Stille Tage)%"
+REM [TRIGGER(easter-7)] MSG %"Pálmasunnudagur%"
+OMIT [TRIGGER(easter-3)] MSG %"Skírdagur (frídagur)%"
+OMIT [TRIGGER(easter-2)] MSG %"Föstudagurinn langi (frídagur)%"
+OMIT [TRIGGER(easter)] MSG %"Páskadagur (frídagur)%"
+REM [TRIGGER(easter+1)] MSG %"Annar í páskum (frídagur)%"
+OMIT [TRIGGER(easter+39)] MSG %"Uppstigningardagur%"
+OMIT [TRIGGER(easter+49)] MSG %"Hvítasunnudagur%"
+OMIT [TRIGGER(easter+50)] MSG %"Annar í hvítasunnu%"
+
+# Some holidays are omitted, some are not.  You may want to change
+# which ones are omitted - use the general forms shown below.
+# You'll need the _back() function and the Week_n variables defined
+# way up in the file.
+
+OMIT     Jan  1   MSG %"Nýársdagur (frídagur)%" Tag
+REM      Jan  6   MSG %"Þrettándinn%"
+OMIT     May  1   MSG %"Verkalýðsdagurinn%"
+REM  Sun May [Week_2]     Msg %"Mæðradagurinn%"
+OMIT	 Jun 17   MSG %"Lýðveldisdagurinn%"
+REM  Sun Jun  1	  MSG %"Sjómannadagurinn%"
+REM      Jun 23   MSG %"Jónsmessa%"
+REM      Sep 16   MSG %"Dagur íslenskrar náttúru%"
+REM  Sun Nov [Week_2]	Msg %"Feðradagurinn%"
+REM      Nov 16   MSG %"Dagur íslenskrar tungu%"
+REM	 Dec  1	  MSG %"Fullveldisdagurinn (frídagur)%"
+REM	 Dec 23   MSG %"Þorláksmessa%"
+REM      Dec 24   MSG %"Aðfangadagur (frídagur)%"
+OMIT     Dec 25   MSG %"Jóladagur (frídagur)%"
+OMIT     Dec 26   MSG %"Annar í jólum (frídagur)%"
+
+REM Sun Dec 24 --28 MSG %"Fyrsti í aðventu%"
+REM Sun Dec 24 --21 MSG %"Annar í aðventu%"
+REM Sun Dec 24 --14 MSG %"Þriðji í aðventu%"
+REM SUN Dec 24 --7 MSG %"Fjórði í aðventu%"
+
+# Todo:
+# - Þorrinn: 4. mánuður vetrar að íslensku tímatali; hefst  með föstudegi í 13. viku vetrar (19.-25. jan. nema á eftir rímspillisári, þá 26. jan.). Nafnskýring óviss.
+# - Bóndadagur: Fyrsti dagur þorra
+# - Bolludagur: Mánudagurinn í föstuinngangi (whatever that means)
+# - Konudagur: Fyrsti dagur góu
+# - góa (áður gói), fimmti mánuður vetrar að forníslensku tímatali; hefst með sunnudegi í 18. viku vetrar (18.- 24. febrúar, nema á eftir rímspillisári, þá 25. febrúar). Nafnskýring óviss.
+
+REM  Mon August [Week_1] 	  MSG %"Frídagur verslunarmanna%"
+
+if $NumTrig > SaveTrig
+    REM SPECIAL SHADE 220
+endif 
